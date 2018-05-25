@@ -16,8 +16,13 @@ with open(path.join(here, 'README.md')) as a_file:
     long_description = a_file.read()
 
 setup(name='honeybee',
+      packages=['honeybee'],
       version=version_dict['__version__'],
       description='An artificial bee colony implementation in Python',
       long_description=long_description,
       long_description_content_type='text/markdown',
-      author='Engineero')
+      author='Engineero',
+      author_email='engineerolabs@gmail.com',
+      url='https://github.com/Engineero/honeybee',
+      keywords=['abc artificial bee colony optimization'],
+      classifiers=[])
