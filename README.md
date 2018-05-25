@@ -1,2 +1,2 @@
-# artificial_bee_colony
+# Honeybee
 An artificial bee colony implementation in Python
