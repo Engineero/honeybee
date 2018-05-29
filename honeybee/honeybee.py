@@ -20,16 +20,24 @@ class Colony:
             is "depleted" and the colony moves on to new food sources.
     
     """
-    def __init__(self, objective, num_bees: int, params: dict, limit: int = 5):
+    def __init__(self, objective, num_bees: int, params: dict, limit: int = 5,
+                 max_iter: int = 1000, num_scouts: int = 1):
         """ Initialize the colony. """
         self.objective = objective
         self.num_bees = num_bees
         self.params = params
         self.limit = limit
+        self.max_iter = max_iter
+        self.num_scouts = 1
         self.is_initialized = False
+        self.colony = [_Bee(self.objective) for b in range(self.num_bees + self.num_scouts)]
+        self.food = [0.] * len(self.colony)
 
     def fit(self):
-        pass
+        for _ in range(self.max_iter):
+            for bee in self.colony:
+                bee.evaluate()
+            self.food = [bee.food for bee in colony]
 
     def initialize(self):
         self.is_initialized = True
@@ -38,10 +46,10 @@ class Colony:
 # Maybe this should be a sub-class of Colony?
 class _Bee:
     """ Defines a single bee in the colony. """
-    def __init__(self, position):
+    def __init__(self, objective, position=None):
+        self.objective = objective
         self.position = position
         self.food = None  # objective function value at position
 
     def evaluate(self):
-        pass
-
+        self.food = self.objective(self.position)
