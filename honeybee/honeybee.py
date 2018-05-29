@@ -15,13 +15,17 @@ class Colony:
                       'param_2': (min, max),
                       ...,
                       'param_n': (min, max)}
+                      
+        limit: number of trails without improvement at a food source before it
+            is "depleted" and the colony moves on to new food sources.
     
     """
-    def __init__(self, objective, num_bees: int, params: dict):
+    def __init__(self, objective, num_bees: int, params: dict, limit: int = 5):
         """ Initialize the colony. """
         self.objective = objective
         self.num_bees = num_bees
         self.params = params
+        self.limit = limit
         self.is_initialized = False
 
     def fit(self):
