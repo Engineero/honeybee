@@ -18,6 +18,21 @@ class Colony:
                       
         limit: number of trails without improvement at a food source before it
             is "depleted" and the colony moves on to new food sources.
+        max_iter: maximum number of loops through the colonies fit function.
+            Note that the objective function will be evaluated a number of
+            times equal to::
+            
+                max_iter * (num_bees + num_scouts)
+                
+        num_scouts: number of additional bees in the colony that are solely
+            responsible for exploring, i.e. the number of additional random
+            guesses made at every iteration of the fit function.
+            
+    Properties:
+        is_initialized: indicates whether the colony has been initialized and
+            is ready to be fit.
+        colony: list of Bee objects that make up the colony.
+        food: list of food values for each bee in the colony.
     
     """
     def __init__(self, objective, num_bees: int, params: dict, limit: int = 5,
@@ -45,10 +60,25 @@ class Colony:
 
 # Maybe this should be a sub-class of Colony?
 class _Bee:
-    """ Defines a single bee in the colony. """
+    """ Defines a single bee in the colony.
+    
+    Args:
+        objective: objective function called by each bee at each food source.
+            Must return a "honey" value that will be maximized by the colony.
+        position: initial food source location to test, i.e. initial guess
+            for each bee in the colony.
+            
+    Properties:
+        ref_position: reference position around which the bee is searching.
+            When enough searches are complete around a given reference position
+            without improving it, that reference position is abandoned.
+        food: value of the objective function at position.
+
+    """
     def __init__(self, objective, position=None):
         self.objective = objective
         self.position = position
+        self.ref_position = position
         self.food = None  # objective function value at position
 
     def evaluate(self):
