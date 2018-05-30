@@ -7,15 +7,16 @@ class Colony:
     Args:
         objective: objective function called by each bee at each food source.
             Must return a "honey" value that will be maximized by the colony.
-        num_bees: number of employed bees in the colony, i.e. number of
-            solutions searched at each iteration of the algorithm.
         params: dictionary of optimization parameters and their ranges::
 
             params = {'param_1': (min, max),
                       'param_2': (min, max),
                       ...,
                       'param_n': (min, max)}
-                      
+
+    Keyword Args:
+        num_bees: number of employed bees in the colony, i.e. number of
+            solutions searched at each iteration of the algorithm.
         limit: number of trails without improvement at a food source before it
             is "depleted" and the colony moves on to new food sources.
         max_iter: maximum number of loops through the colonies fit function.
@@ -35,8 +36,8 @@ class Colony:
         food: list of food values for each bee in the colony.
     
     """
-    def __init__(self, objective, num_bees: int, params: dict, limit: int = 5,
-                 max_iter: int = 1000, num_scouts: int = 1):
+    def __init__(self, objective, params: dict, num_bees: int = 10,
+                 limit: int = 5, max_iter: int = 1000, num_scouts: int = 1):
         """ Initialize the colony. """
         self.objective = objective
         self.num_bees = num_bees
