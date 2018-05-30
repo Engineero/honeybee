@@ -2,14 +2,12 @@
 
 An artificial bee colony implementation in Python
 
----
 ## Installation
 
 To install with `pip`:
 
     pip install honeybee
 
----
 ## Usage
 
 To use, first install the package as above, then define a function that you
