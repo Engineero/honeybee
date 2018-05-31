@@ -49,7 +49,14 @@ class Colony:
         self.colony = [_Bee(self.objective) for b in range(self.num_bees + self.num_scouts)]
         self.food = [0.] * len(self.colony)
 
-    def fit(self):
+    def fit(self, verbose: bool = False):
+        """ Maximizes the objective function using the bee colony.
+        
+        Keyword Args:
+            verbose: if true, output periodic updates about the fitting process.
+                Default is False.
+        
+        """
         for _ in range(self.max_iter):
             for bee in self.colony:
                 bee.evaluate()
