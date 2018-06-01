@@ -65,6 +65,7 @@ class Colony:
         self.is_initialized = False
         self.colony = [_Bee(self.objective) for b in range(self.num_bees + self.num_scouts)]
         self.food = [0.] * len(self.colony)
+        self.chosen = False * len(self.colony)
 
     def fit(self, verbose: bool = False):
         """ Maximizes the objective function using the bee colony.
@@ -74,28 +75,34 @@ class Colony:
                 Default is False.
         
         """
+        if not self.is_initialized:
+            self.initialize()
         for _ in range(self.max_iter):
             for bee in self.colony:
                 bee.evaluate()
             self.food = [bee.food for bee in self.colony]
             # TODO (ENG): pick where the bees go next based on food values.
+            self._choose_food
+            self._perturb_params
 
             # Send scouts to random locations always.
             for bee in self.colony[-self.num_scouts:]:
                 bee.goto(self._draw_params)
 
     def initialize(self):
+        """ Initializes the colony with first guesses for all bees. """
         for bee in self.colony:
             bee.goto(self._draw_params)
         self.is_initialized = True
 
     def _draw_params(self):
+        """ Makes a random draw of parameters. """
         draw = {}
         for k, v in params.items():
             if isinstance(v, tuple):
-                draw[k] = uniform(*v)
+                draw[k] = uniform(*v)  # uniform for ranges
             elif callable(v):
-                draw[k] = v()
+                draw[k] = v()  # call function for provided distributions
         return draw
 
     def _choose_food(self):
