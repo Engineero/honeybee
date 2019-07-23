@@ -35,6 +35,7 @@ CLASSIFIERS = ['Development Status :: 2 - Pre-Alpha',
 PROJECT_URLS = {'Documentation': 'https://engineero.github.io/honeybee',
                 'Source': 'https://github.com/Engineero/honeybee',
                 'Tracker': 'https://github.com/Engineero/honeybee/issues'}
+INSTALL_REQUIRES = ['numpy']
 
 setup(name='honeybee',
       packages=['honeybee'],
@@ -47,4 +48,5 @@ setup(name='honeybee',
       url='https://github.com/Engineero/honeybee',
       project_urls=PROJECT_URLS,
       keywords=['abc artificial bee colony optimization'],
-      classifiers=CLASSIFIERS)
+      classifiers=CLASSIFIERS,
+      install_requires=INSTALL_REQUIRES)
